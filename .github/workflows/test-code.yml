@@ -1,8 +1,8 @@
 name: Runs Tests On Code
 run-name: Linting Workspace
 on:
-  workflow_dispatch  #Enables the workflow to be manually triggered.
-  pull_request
+  workflow_dispatch:  #Enables the workflow to be manually triggered.
+  pull_request:
   push:
     branches:
       - main
