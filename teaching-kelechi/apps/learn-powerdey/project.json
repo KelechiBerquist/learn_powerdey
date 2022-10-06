@@ -1,0 +1,98 @@
+{
+  "name": "learn-powerdey",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/learn-powerdey/src",
+  "prefix": "teaching-kelechi",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/learn-powerdey",
+        "index": "apps/learn-powerdey/src/index.html",
+        "main": "apps/learn-powerdey/src/main.ts",
+        "polyfills": "apps/learn-powerdey/src/polyfills.ts",
+        "tsConfig": "apps/learn-powerdey/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/learn-powerdey/src/favicon.ico",
+          "apps/learn-powerdey/src/assets"
+        ],
+        "styles": ["apps/learn-powerdey/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/learn-powerdey/src/environments/environment.ts",
+              "with": "apps/learn-powerdey/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "learn-powerdey:build:production"
+        },
+        "development": {
+          "browserTarget": "learn-powerdey:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/learn-powerdey/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "learn-powerdey:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/learn-powerdey/**/*.ts",
+          "apps/learn-powerdey/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/learn-powerdey"],
+      "options": {
+        "jestConfig": "apps/learn-powerdey/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,16 @@
+name: Github Actions Demo
+run-name: ${{ github.actor }} is checking out Github Actions
+on: [push]
+jobs:
+  Explore-Github-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This job automatically runs each time a push request happens"
+      - run: echo "This step below checks out the repository into the runner container/VM"
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo ${{ github.repository }} has been cloned into the runner.
+      - name: List files in the repository
+        run: |
+          ls -la ${{ github.workspace }}
+      - run: echo "This job status is ${{ job.status }}."
