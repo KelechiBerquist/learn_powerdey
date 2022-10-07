@@ -26,7 +26,13 @@ jobs:
           cache: npm
       - name: Install Yarn
         run: npm install -g yarn
-      - name: Install Dependencies
+      - name: Echo current directory name
+        run: echo $PWD
+      - name: Navigate to working directory
+        run: cd teaching-kelechi
+      - name: Echo current directory name
+        run: echo $PWD
+      - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Run tests
         run: yarn run affected-test
