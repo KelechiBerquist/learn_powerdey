@@ -6,15 +6,9 @@ on:
   push:   #Enables the workflow to be automatically after a push to main branch.
     branches:
       - main
-# permissions: #Defines permissions for the github token used for this workflow
-#   contents: read
-#   pull_requests: read
 concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true #Cancels any running job or workflow in the same concurrency group
-# defaults:
-#  run:
-#   working-directory: ./teaching-kelechi
 jobs:
   Lint-Code:
     runs-on: ubuntu-latest
@@ -25,8 +19,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x #16.13
-          # cache: npm #Caching is looking for .lock file in the current directory
+          node-version: 16.13.x
       - name: Install Yarn
         run: |
           echo $PWD
@@ -51,3 +44,11 @@ jobs:
           cd ./teaching-kelechi
           echo $PWD
           yarn run linting
+      - name: Post status to slack
+        id: slack
+        uses: slackapi/slack-github-action@v1.22.0
+        with:
+          channel-id: 'C0460G9ESV7'
+          slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
