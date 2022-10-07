@@ -19,6 +19,10 @@ jobs:
       - run: echo "Starting Job ${{ job.name }}"
       - name: Checkout repo
         uses: actions/checkout@v3
+      - name: Echo current directory name
+        run: echo $PWD
+      - name: Navigate to working directory
+        run: cd teaching-kelechi
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -26,10 +30,6 @@ jobs:
           cache: npm
       - name: Install Yarn
         run: npm install -g yarn
-      - name: Echo current directory name
-        run: echo $PWD
-      - name: Navigate to working directory
-        run: cd teaching-kelechi
       - name: Echo current directory name
         run: echo $PWD
       - name: Install dependencies
