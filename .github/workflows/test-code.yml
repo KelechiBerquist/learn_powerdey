@@ -12,9 +12,9 @@ on:
 concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true #Cancels any running job or workflow in the same concurrency group
-defaults:
- run:
-  working-directory: ./teaching-kelechi
+# defaults:
+#  run:
+#   working-directory: ./teaching-kelechi
 jobs:
   Lint-Code:
     runs-on: ubuntu-latest
