@@ -22,30 +22,32 @@ jobs:
       - run: echo "Starting Job ${{ job.name }}"
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Echo current directory name
-        run: echo $PWD
-      - name: Navigate to working directory
-        run: cd ./teaching-kelechi
-      - name: Echo current directory name
-        run: echo $PWD
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 16.13.x #16.13
-          cache: npm
+          # cache: npm #Caching is looking for .lock file in the current directory
       - name: Install Yarn
         run: |
+          echo $PWD
+          cd ./teaching-kelechi
           echo $PWD
           npm install -g yarn
       - name: Install dependencies
         run: |
+          echo $PWD
           cd ./teaching-kelechi
+          echo $PWD
           yarn install --frozen-lockfile
       - name: Run tests
         run: |
+          echo $PWD
           cd ./teaching-kelechi
+          echo $PWD
           yarn run affected-test
       - name: Lint workspace
         run: |
+          echo $PWD
           cd ./teaching-kelechi
+          echo $PWD
           yarn run linting
