@@ -26,23 +26,24 @@ jobs:
       - name: Echo current directory name
         run: echo $PWD
       - name: Setup Node
+        working-directory: ./teaching-kelechi
         uses: actions/setup-node@v3
         with:
           node-version: 16.13.x #16.13
           cache: npm
       - name: Install Yarn
-        run: npm install -g yarn
-      - name: Echo current directory name
-        run: echo $PWD
+        run: |
+          echo $PWD
+          npm install -g yarn
       - name: Install dependencies
         run: |
           cd ./teaching-kelechi
           yarn install --frozen-lockfile
       - name: Run tests
-        run:  |
+        run: |
           cd ./teaching-kelechi
           yarn run affected-test
       - name: Lint workspace
-        run:  |
+        run: |
           cd ./teaching-kelechi
           yarn run linting
