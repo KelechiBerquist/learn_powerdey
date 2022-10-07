@@ -1,19 +1,20 @@
 name: Runs Tests On Code
-run-name: Linting Workspace
+run-name: Testing and Linting Workspace
 on:
   workflow_dispatch:  #Enables the workflow to be manually triggered.
-  pull_request:
-  push:
+  pull_request:  #Enables the workflow to be automatically after a pull request.
+  push:   #Enables the workflow to be automatically after a push to main branch.
     branches:
       - main
-permissions: #Defines permissions for the github token used for this workflow
-  contents: read
-  pull_requests: read
+# permissions: #Defines permissions for the github token used for this workflow
+#   contents: read
+#   pull_requests: read
 concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true #Cancels any running job or workflow in the same concurrency group
 jobs:
   Lint-Code:
+    runs-on: ubuntu-latest
     steps:
       - run: echo "Starting Job ${{ job.name }}"
       - name: Checkout repo
